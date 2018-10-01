@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>DRUM SET</title>
+	<link href="favicon1.ico" rel="icon" type="image/x-icon" />
+
+
+</head>
+<body>
+	<div class="keys">
+		<div data-key="65" class="key">
+			A
+			<span class="sound">clap</span>
+		</div>
+		<div data-key="83" class="key">
+			S
+			<span class="sound">hithat</span>
+		</div>
+		<div data-key="68" class="key">
+			D
+			<span class="sound">kick</span>
+		</div>
+		<div data-key="70" class="key">
+			F
+			<span class="sound">openhat</span>
+		</div>
+		<div data-key="71" class="key">
+			G
+			<span class="sound">boom</span>
+		</div>
+		<div data-key="72" class="key">
+			H
+			<span class="sound">ride</span>
+		</div>
+		<div data-key="74" class="key">
+			J
+			<span class="sound">snare</span>
+		</div>
+		<div data-key="75" class="key">
+			K
+			<span class="sound">tom</span>
+		</div>
+		<div data-key="76" class="key">
+			L
+			<span class="sound">tink</span>
+		</div>
+		
+		
+	</div>
+	<audio data-key="65" src="sounds/clap.wav"></audio>
+	<audio data-key="83" src="sounds/hihat.wav"></audio>
+	<audio data-key="68" src="sounds/kick.wav"></audio>
+	<audio data-key="70" src="sounds/openhat.wav"></audio>
+	<audio data-key="71" src="sounds/boom.wav"></audio>
+	<audio data-key="72" src="sounds/ride.wav"></audio>
+	<audio data-key="74" src="sounds/snare.wav"></audio>
+	<audio data-key="75" src="sounds/tom.wav"></audio>
+	<audio data-key="76" src="sounds/tink.wav"></audio>
+
+	<script type="text/javascript">
+		// window.addEventListener('keydown',function(e){
+		// 	const audio=document.querySelector(`audio[data-key="${e.keyCode}"]`);
+		// 	if(!audio) return;
+		// 	audio.play();
+		// });
+
+
+
+		function playsound(e){
+		const audio=document.querySelector(`audio[data-key="${e.keyCode}"]`);
+		const key=document.querySelector(`.key[data-key="${e.keyCode}"]`);		
+		if(!audio)return;
+			audio.currentTime=0;
+			audio.play();
+			key.classList.add('playing');
+		}
+
+		function removeTransition(e) {
+			if(e.propertyName!=='transform') return;
+			this.classList.remove('playing');
+		}
+		const keys=document.querySelectorAll('.key');
+		keys.forEach(key=>key.addEventListener('transitionend',removeTransition));
+		
+		window.addEventListener('keydown',playsound);
+		// window.addEventListener('click',playsound);
+		
+	</script>
+
+	<style type="text/css">
+		html{
+			background-image: url("download.jpeg");
+			background-size: cover;
+			font-family: 'helvetica neue';
+			text-align: center;
+			font-size: 10px;
+		}
+		body{
+			/*text-align: center;*/
+			display: flex;
+			min-height: 100vh;
+			/*justify-content: center*/
+			align-items: center;
+		}
+		.key{
+			border:4px solid #ffc107;
+			border-radius: 5px;
+			margin: 1rem;
+			font-size: 1.5rem;
+			padding: 1rem .5rem;
+			transition: all 0.07s;
+			width: 100px;
+			text-align: center;
+			color:white;
+			background: rgba(0,0,0,0.4);
+			text-shadow: 0 0 5px 0 black;
+		}
+
+		.playing{
+			transform: scale(5);
+			border-color: red;
+			box-shadow: 0 0 10px 0 red;
+		}
+
+		kbd{
+			display: block;
+			border-color: #ffc600;
+			color: red;
+			box-shadow: 0 0 10px #ffc600
+		}
+
+		.sound{
+			font-size: 1.2rem;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			color: #ffc600;
+
+		}
+		.keys{
+			/*color: red;*/
+			display: flex;
+			flex: 1;
+			flex-direction: row;
+			justify-content: space-between;
+		}
+	</style>
+</body>
+</html>
